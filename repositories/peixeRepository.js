@@ -1,4 +1,4 @@
-const IPeixeRepository = require("../interface/IPeixeRepository");
+const IPeixeRepository = require("../interface/iPeixeRepository");
 const { Peixe } = require("../data/dbContext");
 
 class PeixeRepository extends IPeixeRepository {
