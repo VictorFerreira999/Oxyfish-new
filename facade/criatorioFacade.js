@@ -1,5 +1,3 @@
-const CriatorioApplication = require('../applications/criatorioApplication');
-
 class CriatorioFacade {
   constructor(criatorioApplication) {
     this.criatorioApplication = criatorioApplication;

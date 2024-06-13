@@ -1,5 +1,3 @@
-const PeixeApplication = require('../applications/peixeApplication');
-
 class PeixeFacade {
   constructor(peixeApplication) {
     this.peixeApplication = peixeApplication;

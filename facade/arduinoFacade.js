@@ -1,5 +1,3 @@
-const ArduinoApplication = require('../applications/arduinoApplication');
-
 class ArduinoFacade {
   constructor(arduinoApplication) {
     this.arduinoApplication = arduinoApplication;

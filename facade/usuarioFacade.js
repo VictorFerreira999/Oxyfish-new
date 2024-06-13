@@ -1,5 +1,3 @@
-const UsuarioApplication = require('../applications/usuarioApplication');
-
 class UsuarioFacade {
   constructor(usuarioApplication) {
     this.usuarioApplication = usuarioApplication;

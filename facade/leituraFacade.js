@@ -1,5 +1,3 @@
-const LeituraApplication = require('../applications/leituraApplication');
-
 class LeituraFacade {
   constructor(leituraApplication) {
     this.leituraApplication = leituraApplication;
