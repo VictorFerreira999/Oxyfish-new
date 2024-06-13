@@ -3,23 +3,23 @@ class CriatorioFacade {
     this.criatorioApplication = criatorioApplication;
   }
 
-  async getAllCriatorios() {
+  async get() {
     return await this.criatorioApplication.getAll();
   }
 
-  async getCriatorioById(id) {
+  async getById(id) {
     return await this.criatorioApplication.getById(id);
   }
 
-  async addCriatorio(data) {
+  async add(data) {
     return await this.criatorioApplication.add(data);
   }
 
-  async updateCriatorio(id, newData) {
+  async update(id, newData) {
     await this.criatorioApplication.update(id, newData);
   }
 
-  async deleteCriatorio(id) {
+  async delete(id) {
     await this.criatorioApplication.delete(id);
   }
 }

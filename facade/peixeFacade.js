@@ -3,23 +3,23 @@ class PeixeFacade {
     this.peixeApplication = peixeApplication;
   }
 
-  async getAllPeixes() {
+  async getAll() {
     return await this.peixeApplication.getAll();
   }
 
-  async getPeixeById(id) {
+  async getById(id) {
     return await this.peixeApplication.getById(id);
   }
 
-  async addPeixe(data) {
+  async add(data) {
     return await this.peixeApplication.add(data);
   }
 
-  async updatePeixe(id, newData) {
+  async update(id, newData) {
     await this.peixeApplication.update(id, newData);
   }
 
-  async deletePeixe(id) {
+  async delete(id) {
     await this.peixeApplication.delete(id);
   }
 }

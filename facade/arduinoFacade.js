@@ -3,23 +3,23 @@ class ArduinoFacade {
     this.arduinoApplication = arduinoApplication;
   }
 
-  async getAllDadosArduino() {
+  async getAll() {
     return await this.arduinoApplication.getAll();
   }
 
-  async getDadosArduinoById(id) {
+  async getById(id) {
     return await this.arduinoApplication.getById(id);
   }
 
-  async addDadosArduino(data) {
+  async add(data) {
     return await this.arduinoApplication.add(data);
   }
 
-  async updateDadosArduino(id, newData) {
+  async update(id, newData) {
     await this.arduinoApplication.update(id, newData);
   }
 
-  async deleteDadosArduino(id) {
+  async delete(id) {
     await this.arduinoApplication.delete(id);
   }
 }

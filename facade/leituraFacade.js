@@ -3,23 +3,23 @@ class LeituraFacade {
     this.leituraApplication = leituraApplication;
   }
 
-  async getAllLeituras() {
+  async getAll() {
     return await this.leituraApplication.getAll();
   }
 
-  async getLeituraById(id) {
+  async getById(id) {
     return await this.leituraApplication.getById(id);
   }
 
-  async addLeitura(data) {
+  async add(data) {
     return await this.leituraApplication.add(data);
   }
 
-  async updateLeitura(id, newData) {
+  async update(id, newData) {
     await this.leituraApplication.update(id, newData);
   }
 
-  async deleteLeitura(id) {
+  async delete(id) {
     await this.leituraApplication.delete(id);
   }
 }
