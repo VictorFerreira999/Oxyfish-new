@@ -37,8 +37,8 @@ const updateLeitura = async (req, res) => {
     try {
         const id = req.params.id;
         const newData = req.body;
-        await leituraFacade.update(id, newData);
-        res.status(200).json({ message: 'Leitura atualizada com sucesso' });
+        const leituraAtualizada = await leituraFacade.update(id, newData);
+        res.status(200).json(leituraAtualizada);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

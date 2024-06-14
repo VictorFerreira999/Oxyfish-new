@@ -1,4 +1,8 @@
 const express = require('express');
+const app = express();
+const port = process.env.PORT || 3000;
+
+
 
 const authRoutes = require('./routes/authRoutes');
 const criatorioRoutes = require('./routes/criatorioRoutes');
@@ -8,9 +12,6 @@ const leituraRoutes = require('./routes/leituraRoutes');
 const arduinoRoutes = require('./routes/arduinoRoutes');
 
 const isAuth = require("./middleware/isAuth");
-
-const app = express();
-const port = process.env.PORT || 3000;
 
 app.use(express.json());
 

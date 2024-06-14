@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const leituraController = require('../controllers/leituraController');
-const isAuth = require('../middleware/isAuth');
 
 router.get('/', leituraController.getAllLeituras);
 router.get('/:id', leituraController.getLeituraById);
