@@ -1,3 +1,5 @@
+const IPeixeRepository = require("../interface/iPeixeRepository");
+
 class PeixeApplication {
    constructor(peixeRepository) {
        this.peixeRepository = peixeRepository;

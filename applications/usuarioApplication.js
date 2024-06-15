@@ -1,3 +1,5 @@
+const IUsuarioRepository = require("../interface/iUsuarioRepository");
+
 class UsuarioApplication {
    constructor(usuarioRepository) {
        this.usuarioRepository = usuarioRepository;
@@ -21,9 +23,9 @@ class UsuarioApplication {
        }
    }
 
-   async add(data) {
+   async add(nome, email, senha) {
        try {
-           const novoUsuario = await this.usuarioRepository.add(data);
+           const novoUsuario = await this.usuarioRepository.add(nome, email, senha);
            return novoUsuario;
        } catch (error) {
            throw new Error("Erro ao adicionar usuário: " + error.message);

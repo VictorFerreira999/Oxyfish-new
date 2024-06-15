@@ -1,3 +1,5 @@
+const IArduinoRepository = require("../interface/iArduinoRepository");
+
 class ArduinoApplication {
    constructor(arduinoRepository) {
        this.arduinoRepository = arduinoRepository;

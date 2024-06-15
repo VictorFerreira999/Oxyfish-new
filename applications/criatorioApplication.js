@@ -1,3 +1,5 @@
+const ICriatorioRepository = require("../interface/iCriatorioRepository");
+
 class CriatorioApplication {
    constructor(criatorioRepository) {
        this.criatorioRepository = criatorioRepository;
