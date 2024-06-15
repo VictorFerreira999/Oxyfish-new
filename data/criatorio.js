@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING(255),
         allowNull: false,
       },
-      localizacao: {
+      tipo: {
         type: DataTypes.STRING(255),
         allowNull: false,
       },

@@ -26,15 +26,21 @@ const Criatorio = require("./criatorio")(sequelize, DataTypes);
 const Peixe = require("./peixe")(sequelize, DataTypes);
 const Arduino = require("./arduino")(sequelize, DataTypes);
 const Leitura = require("./leitura")(sequelize, DataTypes);
+const Ph = require("./ph")(sequelize, DataTypes);
+const Oxigenio = require("./oxigenio")(sequelize, DataTypes);
+const Temperatura = require("./temperatura")(sequelize, DataTypes);
+const UsuarioCriatorio = require("./usuarioCriatorio")(sequelize, DataTypes);
 
 // Configurando associações
 
-// Usuario <-> Criatorio
-Usuario.hasMany(Criatorio, {
-  foreignKey: "usuario_id",
+// Usuario <-> Criatorio (N:N)
+Usuario.belongsToMany(Criatorio, {
+  through: UsuarioCriatorio,
+  foreignKey: 'usuario_id'
 });
-Criatorio.belongsTo(Usuario, {
-  foreignKey: "usuario_id",
+Criatorio.belongsToMany(Usuario, {
+  through: UsuarioCriatorio,
+  foreignKey: 'criatorio_id'
 });
 
 // Criatorio <-> Peixe
@@ -61,10 +67,32 @@ Leitura.belongsTo(Arduino, {
   foreignKey: "arduino_id",
 });
 
+// Leitura <-> Ph, Oxigenio, Temperatura
+Leitura.hasOne(Ph, {
+  foreignKey: 'leitura_id'
+});
+Ph.belongsTo(Leitura, {
+  foreignKey: 'leitura_id'
+});
+
+Leitura.hasOne(Oxigenio, {
+  foreignKey: 'leitura_id'
+});
+Oxigenio.belongsTo(Leitura, {
+  foreignKey: 'leitura_id'
+});
+
+Leitura.hasOne(Temperatura, {
+  foreignKey: 'leitura_id'
+});
+Temperatura.belongsTo(Leitura, {
+  foreignKey: 'leitura_id'
+});
+
 sequelize
   .sync({ alter: true })
   .then(() => {
-    console.log("Tabela criada com sucesso!");
+    console.log("Tabelas criadas com sucesso!");
   })
   .catch((error) => {
     console.log("Erros: " + error);
@@ -76,4 +104,8 @@ module.exports = {
   Peixe,
   Arduino,
   Leitura,
+  Ph,
+  Oxigenio,
+  Temperatura,
+  UsuarioCriatorio
 };
