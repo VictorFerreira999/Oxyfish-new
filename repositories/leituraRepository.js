@@ -1,7 +1,5 @@
-// repositories/LeituraRepository.js
 const ILeituraRepository = require("../interface/iLeituraRepository");
 const { Leitura } = require("../data/dbContext");
-const LeituraFactory = require("../factories/leituraFactory");
 
 class LeituraRepository extends ILeituraRepository {
     constructor() {
@@ -10,11 +8,8 @@ class LeituraRepository extends ILeituraRepository {
 
     async getById(id) {
         try {
-            const leituraData = await Leitura.findByPk(id);
-            if (leituraData) {
-                return LeituraFactory.criarLeitura(leituraData);
-            }
-            return null;
+            const leitura = await Leitura.findByPk(id);
+            return leitura;
         } catch (error) {
             throw new Error('Erro ao buscar leitura por ID: ' + error.message);
         }
@@ -22,27 +17,30 @@ class LeituraRepository extends ILeituraRepository {
 
     async getAll() {
         try {
-            const leiturasData = await Leitura.findAll();
-            return leiturasData.map(leituraData => LeituraFactory.criarLeitura(leituraData));
+            const leituras = await Leitura.findAll();
+            return leituras;
         } catch (error) {
             throw new Error('Erro ao buscar todas as leituras: ' + error.message);
         }
     }
 
-    async add(data) {
+    async add(arduino_id, data_hora) {
         try {
-            const newLeituraData = await Leitura.create(data);
-            return LeituraFactory.criarLeitura(newLeituraData);
+            const newLeitura = await Leitura.create({ arduino_id, data_hora });
+            return newLeitura;
         } catch (error) {
-            throw new Error('Erro ao adicionar leitura: ' + error.message);
+            throw new Error('Erro ao criar nova leitura: ' + error.message);
         }
     }
 
-    async update(id, data) {
+    async update(id, newData) {
         try {
-            await Leitura.update(data, { where: { id } });
-            const updatedLeituraData = await this.getById(id);
-            return LeituraFactory.criarLeitura(updatedLeituraData);
+            const leitura = await Leitura.findByPk(id);
+            if (!leitura) {
+                throw new Error('Leitura não encontrada');
+            }
+            await leitura.update(newData);
+            return leitura;
         } catch (error) {
             throw new Error('Erro ao atualizar leitura: ' + error.message);
         }
@@ -50,7 +48,11 @@ class LeituraRepository extends ILeituraRepository {
 
     async delete(id) {
         try {
-            await Leitura.destroy({ where: { id } });
+            const leitura = await Leitura.findByPk(id);
+            if (!leitura) {
+                throw new Error('Leitura não encontrada');
+            }
+            await leitura.destroy();
         } catch (error) {
             throw new Error('Erro ao deletar leitura: ' + error.message);
         }

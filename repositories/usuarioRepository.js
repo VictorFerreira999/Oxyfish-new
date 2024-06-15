@@ -6,6 +6,15 @@ class UsuarioRepository extends IUsuarioRepository {
         super();
     }
 
+    async add(nome, email, senha) {
+        try {
+            const novoUsuario = await Usuario.create({ nome, email, senha });
+            return novoUsuario;
+        } catch (error) {
+            throw new Error('Erro ao criar novo usuário: ' + error.message);
+        }
+    }
+
     async getById(id) {
         try {
             const usuario = await Usuario.findByPk(id);
@@ -21,15 +30,6 @@ class UsuarioRepository extends IUsuarioRepository {
             return usuarios;
         } catch (error) {
             throw new Error('Erro ao buscar todos os usuários: ' + error.message);
-        }
-    }
-
-    async add(data) {
-        try {
-            const newUsuario = await Usuario.create(data);
-            return newUsuario;
-        } catch (error) {
-            throw new Error('Erro ao criar novo usuário: ' + error.message);
         }
     }
 

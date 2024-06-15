@@ -24,9 +24,9 @@ class ArduinoRepository extends IArduinoRepository {
         }
     }
 
-    async add(data) {
+    async add(criatorio_id, localizacao) {
         try {
-            const newArduino = await Arduino.create(data);
+            const newArduino = await Arduino.create({ criatorio_id, localizacao });
             return newArduino;
         } catch (error) {
             throw new Error('Erro ao criar novo Arduino: ' + error.message);
@@ -40,6 +40,7 @@ class ArduinoRepository extends IArduinoRepository {
                 throw new Error('Arduino não encontrado');
             }
             await arduino.update(newData);
+            return arduino;
         } catch (error) {
             throw new Error('Erro ao atualizar Arduino: ' + error.message);
         }

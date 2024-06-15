@@ -24,9 +24,9 @@ class CriatorioRepository extends ICriatorioRepository {
         }
     }
 
-    async add(data) {
+    async add(usuario_id, nome, localizacao) {
         try {
-            const newCriatorio = await Criatorio.create(data);
+            const newCriatorio = await Criatorio.create({ usuario_id, nome, localizacao });
             return newCriatorio;
         } catch (error) {
             throw new Error('Erro ao criar novo criatório: ' + error.message);
@@ -37,9 +37,10 @@ class CriatorioRepository extends ICriatorioRepository {
         try {
             const criatorio = await Criatorio.findByPk(id);
             if (!criatorio) {
-                throw new Error('Criadouro não encontrado');
+                throw new Error('Criatório não encontrado');
             }
             await criatorio.update(newData);
+            return criatorio;
         } catch (error) {
             throw new Error('Erro ao atualizar criatório: ' + error.message);
         }
@@ -49,7 +50,7 @@ class CriatorioRepository extends ICriatorioRepository {
         try {
             const criatorio = await Criatorio.findByPk(id);
             if (!criatorio) {
-                throw new Error('Criadouro não encontrado');
+                throw new Error('Criatório não encontrado');
             }
             await criatorio.destroy();
         } catch (error) {

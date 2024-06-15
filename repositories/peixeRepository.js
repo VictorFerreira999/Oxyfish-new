@@ -24,9 +24,9 @@ class PeixeRepository extends IPeixeRepository {
         }
     }
 
-    async add(data) {
+    async add(criatorio_id, especie, quantidade) {
         try {
-            const newPeixe = await Peixe.create(data);
+            const newPeixe = await Peixe.create({ criatorio_id, especie, quantidade });
             return newPeixe;
         } catch (error) {
             throw new Error('Erro ao criar novo peixe: ' + error.message);
@@ -40,6 +40,7 @@ class PeixeRepository extends IPeixeRepository {
                 throw new Error('Peixe não encontrado');
             }
             await peixe.update(newData);
+            return peixe;
         } catch (error) {
             throw new Error('Erro ao atualizar peixe: ' + error.message);
         }
