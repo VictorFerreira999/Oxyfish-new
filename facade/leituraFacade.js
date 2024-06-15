@@ -1,26 +1,26 @@
 class LeituraFacade {
-  constructor(leituraApplication) {
-    this.leituraApplication = leituraApplication;
-  }
-
-  async getAll() {
-    return await this.leituraApplication.getAll();
+  constructor(leituraRepository) {
+      this.leituraRepository = leituraRepository;
   }
 
   async getById(id) {
-    return await this.leituraApplication.getById(id);
+      return await this.leituraRepository.getById(id);
+  }
+
+  async getAll() {
+      return await this.leituraRepository.getAll();
   }
 
   async add(data) {
-    return await this.leituraApplication.add(data);
+      return await this.leituraRepository.add(data);
   }
 
   async update(id, newData) {
-    await this.leituraApplication.update(id, newData);
+      await this.leituraRepository.update(id, newData);
   }
 
   async delete(id) {
-    await this.leituraApplication.delete(id);
+      await this.leituraRepository.delete(id);
   }
 }
 

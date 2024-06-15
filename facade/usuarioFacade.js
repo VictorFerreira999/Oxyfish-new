@@ -1,26 +1,26 @@
 class UsuarioFacade {
-  constructor(usuarioApplication) {
-    this.usuarioApplication = usuarioApplication;
-  }
-
-  async get() {
-    return await this.usuarioApplication.getAll();
+  constructor(usuarioRepository) {
+      this.usuarioRepository = usuarioRepository;
   }
 
   async getById(id) {
-    return await this.usuarioApplication.getById(id);
+      return await this.usuarioRepository.getById(id);
   }
 
-  async add(data) {
-    return await this.usuarioApplication.add(data);
+  async getAll() {
+      return await this.usuarioRepository.getAll();
+  }
+
+  async add(nome, email, senha) {
+      return await this.usuarioRepository.add(nome, email, senha);
   }
 
   async update(id, newData) {
-    await this.usuarioApplication.update(id, newData);
+      await this.usuarioRepository.update(id, newData);
   }
 
   async delete(id) {
-    await this.usuarioApplication.delete(id);
+      await this.usuarioRepository.delete(id);
   }
 }
 

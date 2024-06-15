@@ -1,26 +1,26 @@
 class PeixeFacade {
-  constructor(peixeApplication) {
-    this.peixeApplication = peixeApplication;
-  }
-
-  async getAll() {
-    return await this.peixeApplication.getAll();
+  constructor(peixeRepository) {
+      this.peixeRepository = peixeRepository;
   }
 
   async getById(id) {
-    return await this.peixeApplication.getById(id);
+      return await this.peixeRepository.getById(id);
+  }
+
+  async getAll() {
+      return await this.peixeRepository.getAll();
   }
 
   async add(data) {
-    return await this.peixeApplication.add(data);
+      return await this.peixeRepository.add(data);
   }
 
   async update(id, newData) {
-    await this.peixeApplication.update(id, newData);
+      await this.peixeRepository.update(id, newData);
   }
 
   async delete(id) {
-    await this.peixeApplication.delete(id);
+      await this.peixeRepository.delete(id);
   }
 }
 
