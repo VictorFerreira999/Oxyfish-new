@@ -1,4 +1,4 @@
-const IArduinoRepository = require("../interface/IArduinoRepository");
+const IArduinoRepository = require("../interface/iArduinoRepository");
 const { Arduino } = require("../data/dbContext");
 
 class ArduinoRepository extends IArduinoRepository {

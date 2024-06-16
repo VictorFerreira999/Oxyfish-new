@@ -1,4 +1,4 @@
-const ICriatorioRepository = require("../interface/ICriatorioRepository");
+const ICriatorioRepository = require("../interface/iCriatorioRepository");
 const { Criatorio } = require("../data/dbContext");
 
 class CriatorioRepository extends ICriatorioRepository {

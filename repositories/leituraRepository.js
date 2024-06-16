@@ -1,7 +1,7 @@
 const ILeituraRepository = require("../interface/ILeituraRepository");
 const { Leitura } = require("../data/dbContext");
 
-class LeituraRepository extends ILeituraRepository {
+class LeituraRepository extends iLeituraRepository {
     constructor() {
         super();
     }
