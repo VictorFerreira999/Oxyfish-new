@@ -27,6 +27,10 @@ const getPhById = async (req, res) => {
 const addPh = async (req, res) => {
     try {
         const { leitura_id, valor } = req.body;
+        if (!leitura_id || !valor) {
+            return res.status(400).json({ message: 'Campos leitura_id e valor são obrigatórios.' });
+        }
+
         const tableName = 'ph';
         const entity = EntityFactory.createEntity(tableName, { leitura_id, valor });
 
@@ -46,6 +50,10 @@ const updatePh = async (req, res) => {
     try {
         const id = req.params.id;
         const { leitura_id, valor } = req.body;
+        if (!leitura_id && !valor) {
+            return res.status(400).json({ message: 'Campos leitura_id e valor são obrigatórios.' });
+        }
+
         const tableName = 'ph';
         const entity = EntityFactory.createEntity(tableName, { leitura_id, valor });
 
@@ -55,7 +63,7 @@ const updatePh = async (req, res) => {
         }
 
         await phFacade.update(id, { leitura_id, valor });
-        res.status(200).json({ message: 'pH atualizado com sucesso' });
+        res.status(200).json({ message: 'Ph atualizado com sucesso' });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -65,7 +73,7 @@ const deletePh = async (req, res) => {
     try {
         const id = req.params.id;
         await phFacade.delete(id);
-        res.status(200).json({ message: 'pH deletado com sucesso' });
+        res.status(200).json({ message: 'Ph deletado com sucesso' });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
