@@ -1,20 +1,15 @@
 class TemperaturaEntity {
-   constructor(value) {
-       this.value = value;
-   }
+    constructor(leitura_id, valor) {
+        if (leitura_id == null) throw new Error('leitura_id é obrigatório');
+        if (valor == null) throw new Error('valor é obrigatório');
+        this.leitura_id = leitura_id;
+        this.valor = valor;
+    }
 
-   getValue() {
-       return this.value;
-   }
-
-   setValue(value) {
-       this.value = value;
-   }
-
-   isOutOfRange() {
-       // Verifica se o valor está fora do padrão aceitável (exemplo de lógica simplificada)
-       return this.value < 18.0 || this.value > 28.0;
-   }
+    isOutOfRange() {
+        // Suponha que os valores aceitáveis para a temperatura estejam entre 0 e 40 graus Celsius
+        return this.valor < 0 || this.valor > 40;
+    }
 }
 
 module.exports = TemperaturaEntity;

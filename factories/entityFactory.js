@@ -3,14 +3,14 @@ const OxigenioEntity = require('../entities/oxigenioEntity');
 const TemperaturaEntity = require('../entities/temperaturaEntity');
 
 class EntityFactory {
-    static createEntity(tableName, value) {
+    static createEntity(tableName, data) {
         switch (tableName) {
             case 'ph':
-                return new PhEntity(value);
+                return new PhEntity(data.leitura_id, data.valor);
             case 'oxigenio':
-                return new OxigenioEntity(value);
+                return new OxigenioEntity(data.leitura_id, data.valor);
             case 'temperatura':
-                return new TemperaturaEntity(value);
+                return new TemperaturaEntity(data.leitura_id, data.valor);
             default:
                 throw new Error('Tabela não suportada');
         }

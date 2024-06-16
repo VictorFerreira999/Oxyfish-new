@@ -1,5 +1,3 @@
-// temperaturaController.js
-
 const { temperaturaFacade } = require('../dependency/injection');
 const EntityFactory = require('../factories/entityFactory');
 
@@ -28,17 +26,16 @@ const getTemperaturaById = async (req, res) => {
 
 const addTemperatura = async (req, res) => {
     try {
-        const { value } = req.body;
+        const { leitura_id, valor } = req.body;
         const tableName = 'temperatura';
-        const entity = EntityFactory.createEntity(tableName, value);
+        const entity = EntityFactory.createEntity(tableName, { leitura_id, valor });
 
         if (entity.isOutOfRange()) {
             // Se estiver fora do intervalo, retorna um erro 400 com uma mensagem de alerta
-            res.status(400).json({ message: `Valor de temperatura ${value} está fora do intervalo aceitável.` });
-            return;
+            return res.status(400).json({ message: `Valor de temperatura ${valor} está fora do intervalo aceitável.` });
         }
 
-        const novaTemperatura = await temperaturaFacade.add({ value });
+        const novaTemperatura = await temperaturaFacade.add({ leitura_id, valor });
         res.status(201).json(novaTemperatura);
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -48,18 +45,16 @@ const addTemperatura = async (req, res) => {
 const updateTemperatura = async (req, res) => {
     try {
         const id = req.params.id;
-        const newData = req.body;
-        const { value } = newData;
+        const { leitura_id, valor } = req.body;
         const tableName = 'temperatura';
-        const entity = EntityFactory.createEntity(tableName, value);
+        const entity = EntityFactory.createEntity(tableName, { leitura_id, valor });
 
         if (entity.isOutOfRange()) {
             // Se estiver fora do intervalo, retorna um erro 400 com uma mensagem de alerta
-            res.status(400).json({ message: `Novo valor de temperatura ${value} está fora do intervalo aceitável.` });
-            return;
+            return res.status(400).json({ message: `Novo valor de temperatura ${valor} está fora do intervalo aceitável.` });
         }
 
-        await temperaturaFacade.update(id, newData);
+        await temperaturaFacade.update(id, { leitura_id, valor });
         res.status(200).json({ message: 'Temperatura atualizada com sucesso' });
     } catch (error) {
         res.status(500).json({ error: error.message });
