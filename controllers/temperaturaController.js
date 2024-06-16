@@ -1,4 +1,7 @@
+// temperaturaController.js
+
 const { temperaturaFacade } = require('../dependency/injection');
+const EntityFactory = require('../factories/entityFactory');
 
 const getAllTemperaturas = async (req, res) => {
     try {
@@ -25,8 +28,17 @@ const getTemperaturaById = async (req, res) => {
 
 const addTemperatura = async (req, res) => {
     try {
-        const temperatura = req.body;
-        const novaTemperatura = await temperaturaFacade.add(temperatura);
+        const { value } = req.body;
+        const tableName = 'temperatura';
+        const entity = EntityFactory.createEntity(tableName, value);
+
+        if (entity.isOutOfRange()) {
+            // Se estiver fora do intervalo, retorna um erro 400 com uma mensagem de alerta
+            res.status(400).json({ message: `Valor de temperatura ${value} está fora do intervalo aceitável.` });
+            return;
+        }
+
+        const novaTemperatura = await temperaturaFacade.add({ value });
         res.status(201).json(novaTemperatura);
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -37,6 +49,16 @@ const updateTemperatura = async (req, res) => {
     try {
         const id = req.params.id;
         const newData = req.body;
+        const { value } = newData;
+        const tableName = 'temperatura';
+        const entity = EntityFactory.createEntity(tableName, value);
+
+        if (entity.isOutOfRange()) {
+            // Se estiver fora do intervalo, retorna um erro 400 com uma mensagem de alerta
+            res.status(400).json({ message: `Novo valor de temperatura ${value} está fora do intervalo aceitável.` });
+            return;
+        }
+
         await temperaturaFacade.update(id, newData);
         res.status(200).json({ message: 'Temperatura atualizada com sucesso' });
     } catch (error) {
