@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const peixeController = require('../controllers/peixeController');
-const isAuth = require('../middleware/isAuth');
 
 router.get('/', peixeController.getAllPeixes);
 router.get('/:id', peixeController.getPeixeById);
