@@ -33,6 +33,17 @@ const addUsuarioCriatorio = async (req, res) => {
     }
 };
 
+const updateUsuarioCriatorio = async (req, res) => {
+    try {
+        const { usuario_id, criatorio_id } = req.params;
+        const newData = req.body;
+        await usuarioCriatorioFacade.update(usuario_id, criatorio_id, newData);
+        res.status(200).json({ message: 'Relação Usuário-Criatório atualizada com sucesso' });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
 const deleteUsuarioCriatorio = async (req, res) => {
     try {
         const { usuario_id, criatorio_id } = req.params;
@@ -47,5 +58,6 @@ module.exports = {
     getAllUsuarioCriatorio,
     getUsuarioCriatorioById,
     addUsuarioCriatorio,
+    updateUsuarioCriatorio,
     deleteUsuarioCriatorio,
 };

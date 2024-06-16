@@ -1,7 +1,7 @@
 const IOxigenioRepository = require("../interface/iOxigenioRepository");
 const { Oxigenio } = require("../data/dbContext");
 
-class OxigenioRepository extends iOxigenioRepository {
+class OxigenioRepository extends IOxigenioRepository {
     constructor() {
         super();
     }

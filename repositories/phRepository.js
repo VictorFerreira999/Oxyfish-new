@@ -1,7 +1,7 @@
 const IPhRepository = require("../interface/iPhRepository");
 const { Ph } = require("../data/dbContext");
 
-class PhRepository extends PhRepository {
+class PhRepository extends IPhRepository {
     constructor() {
         super();
     }
