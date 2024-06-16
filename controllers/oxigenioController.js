@@ -28,11 +28,11 @@ const addOxigenio = async (req, res) => {
     try {
         const { leitura_id, valor } = req.body;
         const tableName = 'oxigenio';
-        const entity = EntityFactory.createEntity(tableName, valor);
+        const entity = EntityFactory.createEntity(tableName, { leitura_id, valor });
 
         if (entity.isOutOfRange()) {
-            res.status(400).json({ message: `Valor de oxigênio ${valor} está fora do intervalo aceitável.` });
-            return;
+            // Se estiver fora do intervalo, retorna um erro 400 com uma mensagem de alerta
+            return res.status(400).json({ message: `Valor de oxigênio ${valor} está fora do intervalo aceitável.` });
         }
 
         const novoOxigenio = await oxigenioFacade.add({ leitura_id, valor });
@@ -47,11 +47,11 @@ const updateOxigenio = async (req, res) => {
         const id = req.params.id;
         const { leitura_id, valor } = req.body;
         const tableName = 'oxigenio';
-        const entity = EntityFactory.createEntity(tableName, valor);
+        const entity = EntityFactory.createEntity(tableName, { leitura_id, valor });
 
         if (entity.isOutOfRange()) {
-            res.status(400).json({ message: `Novo valor de oxigênio ${valor} está fora do intervalo aceitável.` });
-            return;
+            // Se estiver fora do intervalo, retorna um erro 400 com uma mensagem de alerta
+            return res.status(400).json({ message: `Novo valor de oxigênio ${valor} está fora do intervalo aceitável.` });
         }
 
         await oxigenioFacade.update(id, { leitura_id, valor });

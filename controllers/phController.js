@@ -28,11 +28,11 @@ const addPh = async (req, res) => {
     try {
         const { leitura_id, valor } = req.body;
         const tableName = 'ph';
-        const entity = EntityFactory.createEntity(tableName, valor);
+        const entity = EntityFactory.createEntity(tableName, { leitura_id, valor });
 
         if (entity.isOutOfRange()) {
-            res.status(400).json({ message: `Valor de pH ${valor} está fora do intervalo aceitável.` });
-            return;
+            // Se estiver fora do intervalo, retorna um erro 400 com uma mensagem de alerta
+            return res.status(400).json({ message: `Valor de pH ${valor} está fora do intervalo aceitável.` });
         }
 
         const novoPh = await phFacade.add({ leitura_id, valor });
@@ -47,11 +47,11 @@ const updatePh = async (req, res) => {
         const id = req.params.id;
         const { leitura_id, valor } = req.body;
         const tableName = 'ph';
-        const entity = EntityFactory.createEntity(tableName, valor);
+        const entity = EntityFactory.createEntity(tableName, { leitura_id, valor });
 
         if (entity.isOutOfRange()) {
-            res.status(400).json({ message: `Novo valor de pH ${valor} está fora do intervalo aceitável.` });
-            return;
+            // Se estiver fora do intervalo, retorna um erro 400 com uma mensagem de alerta
+            return res.status(400).json({ message: `Novo valor de pH ${valor} está fora do intervalo aceitável.` });
         }
 
         await phFacade.update(id, { leitura_id, valor });
