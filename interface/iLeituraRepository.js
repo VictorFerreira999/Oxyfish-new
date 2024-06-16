@@ -5,7 +5,7 @@ class ILeituraRepository {
     }
   }
 
-  async add(arduino_id, data_hora) {
+  async add(data) {
     throw new Error("Método add não implementado.");
   }
 

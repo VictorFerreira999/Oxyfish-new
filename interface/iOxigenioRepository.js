@@ -5,7 +5,7 @@ class IOxigenioRepository {
        }
    }
 
-   async add(leitura_id, valor) {
+   async add(data) {
        throw new Error("Method 'add' must be implemented.");
    }
 

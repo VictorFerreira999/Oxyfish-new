@@ -5,7 +5,7 @@ class IArduinoRepository {
     }
   }
 
-  async add(criatorio_id, localizacao) {
+  async add(data) {
     throw new Error("Método add não implementado.");
   }
 

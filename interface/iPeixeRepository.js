@@ -5,7 +5,7 @@ class IPeixeRepository {
     }
   }
 
-  async add(criatorio_id, especie, quantidade) {
+  async add(data) {
     throw new Error("Método add não implementado.");
   }
 

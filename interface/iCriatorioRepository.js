@@ -5,7 +5,7 @@ class ICriatorioRepository {
     }
   }
 
-  async add(nome, tipo) {
+  async add(data) {
     throw new Error("Método add não implementado.");
   }
 

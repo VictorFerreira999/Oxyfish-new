@@ -5,7 +5,7 @@ class IUsuarioRepository {
     }
   }
 
-  async add(usuario_id, nome, localizacao) {
+  async add(user) {
     throw new Error("Este método deve ser implementado pelas classes concretas.");
   }
 
