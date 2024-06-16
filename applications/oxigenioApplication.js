@@ -1,16 +1,14 @@
-const IOxigenioRepository = require("../interface/iOxigenioRepository");
-
 class OxigenioApplication {
     constructor(oxigenioRepository) {
         this.oxigenioRepository = oxigenioRepository;
     }
 
-    async add(leitura_id, valor) {
+    async add(data) {
         try {
-            const newOxigenio = await this.oxigenioRepository.add(leitura_id, valor);
-            return newOxigenio;
+            const novoOxigenio = await this.oxigenioRepository.add(data);
+            return novoOxigenio;
         } catch (error) {
-            throw new Error("Error adding oxygen level reading: " + error.message);
+            throw new Error('Erro ao adicionar oxigênio: ' + error.message);
         }
     }
 
@@ -19,7 +17,7 @@ class OxigenioApplication {
             const oxigenio = await this.oxigenioRepository.getById(id);
             return oxigenio;
         } catch (error) {
-            throw new Error("Error fetching oxygen level by ID: " + error.message);
+            throw new Error('Erro ao buscar oxigênio por ID: ' + error.message);
         }
     }
 
@@ -28,7 +26,7 @@ class OxigenioApplication {
             const oxigenios = await this.oxigenioRepository.getAll();
             return oxigenios;
         } catch (error) {
-            throw new Error("Error fetching all oxygen level readings: " + error.message);
+            throw new Error('Erro ao buscar todos os oxigênios: ' + error.message);
         }
     }
 
@@ -36,7 +34,7 @@ class OxigenioApplication {
         try {
             await this.oxigenioRepository.update(id, newData);
         } catch (error) {
-            throw new Error("Error updating oxygen level reading: " + error.message);
+            throw new Error('Erro ao atualizar oxigênio: ' + error.message);
         }
     }
 
@@ -44,7 +42,7 @@ class OxigenioApplication {
         try {
             await this.oxigenioRepository.delete(id);
         } catch (error) {
-            throw new Error("Error deleting oxygen level reading: " + error.message);
+            throw new Error('Erro ao deletar oxigênio: ' + error.message);
         }
     }
 }

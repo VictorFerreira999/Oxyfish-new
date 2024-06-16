@@ -3,12 +3,12 @@ class ArduinoFacade {
         this.arduinoApplication = arduinoApplication;
     }
 
-    async add(arduino) {
+    async add(data) {
         try {
-            const novoArduino = await this.arduinoApplication.add(arduino);
+            const novoArduino = await this.arduinoApplication.add(data);
             return novoArduino;
         } catch (error) {
-            throw new Error("Erro ao adicionar Arduino: " + error.message);
+            throw new Error('Erro ao adicionar Arduino: ' + error.message);
         }
     }
 
@@ -17,7 +17,7 @@ class ArduinoFacade {
             const arduino = await this.arduinoApplication.getById(id);
             return arduino;
         } catch (error) {
-            throw new Error("Erro ao obter Arduino por ID: " + error.message);
+            throw new Error('Erro ao obter Arduino por ID: ' + error.message);
         }
     }
 
@@ -26,7 +26,7 @@ class ArduinoFacade {
             const arduinos = await this.arduinoApplication.getAll();
             return arduinos;
         } catch (error) {
-            throw new Error("Erro ao obter todos os Arduinos: " + error.message);
+            throw new Error('Erro ao obter todos os Arduinos: ' + error.message);
         }
     }
 
@@ -34,7 +34,7 @@ class ArduinoFacade {
         try {
             await this.arduinoApplication.update(id, newData);
         } catch (error) {
-            throw new Error("Erro ao atualizar Arduino: " + error.message);
+            throw new Error('Erro ao atualizar Arduino: ' + error.message);
         }
     }
 
@@ -42,7 +42,7 @@ class ArduinoFacade {
         try {
             await this.arduinoApplication.delete(id);
         } catch (error) {
-            throw new Error("Erro ao deletar Arduino: " + error.message);
+            throw new Error('Erro ao deletar Arduino: ' + error.message);
         }
     }
 }

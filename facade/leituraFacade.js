@@ -3,12 +3,12 @@ class LeituraFacade {
         this.leituraApplication = leituraApplication;
     }
 
-    async add(leitura) {
+    async add(data) {
         try {
-            const novaLeitura = await this.leituraApplication.add(leitura);
+            const novaLeitura = await this.leituraApplication.add(data);
             return novaLeitura;
         } catch (error) {
-            throw new Error("Erro ao adicionar leitura: " + error.message);
+            throw new Error('Erro ao adicionar Leitura: ' + error.message);
         }
     }
 
@@ -17,7 +17,7 @@ class LeituraFacade {
             const leitura = await this.leituraApplication.getById(id);
             return leitura;
         } catch (error) {
-            throw new Error("Erro ao obter leitura por ID: " + error.message);
+            throw new Error('Erro ao obter Leitura por ID: ' + error.message);
         }
     }
 
@@ -26,7 +26,7 @@ class LeituraFacade {
             const leituras = await this.leituraApplication.getAll();
             return leituras;
         } catch (error) {
-            throw new Error("Erro ao obter todas as leituras: " + error.message);
+            throw new Error('Erro ao obter todas as Leituras: ' + error.message);
         }
     }
 
@@ -34,7 +34,7 @@ class LeituraFacade {
         try {
             await this.leituraApplication.update(id, newData);
         } catch (error) {
-            throw new Error("Erro ao atualizar leitura: " + error.message);
+            throw new Error('Erro ao atualizar Leitura: ' + error.message);
         }
     }
 
@@ -42,7 +42,7 @@ class LeituraFacade {
         try {
             await this.leituraApplication.delete(id);
         } catch (error) {
-            throw new Error("Erro ao deletar leitura: " + error.message);
+            throw new Error('Erro ao deletar Leitura: ' + error.message);
         }
     }
 }

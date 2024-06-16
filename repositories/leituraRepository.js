@@ -1,9 +1,18 @@
-const ILeituraRepository = require("../interface/iLeituraRepository");
+const ILeituraRepository = require("../interface/ILeituraRepository");
 const { Leitura } = require("../data/dbContext");
 
 class LeituraRepository extends ILeituraRepository {
     constructor() {
         super();
+    }
+
+    async add(data) {
+        try {
+            const novaLeitura = await Leitura.create(data);
+            return novaLeitura;
+        } catch (error) {
+            throw new Error('Erro ao adicionar leitura: ' + error.message);
+        }
     }
 
     async getById(id) {
@@ -24,15 +33,6 @@ class LeituraRepository extends ILeituraRepository {
         }
     }
 
-    async add(arduino_id, data_hora) {
-        try {
-            const newLeitura = await Leitura.create({ arduino_id, data_hora });
-            return newLeitura;
-        } catch (error) {
-            throw new Error('Erro ao criar nova leitura: ' + error.message);
-        }
-    }
-
     async update(id, newData) {
         try {
             const leitura = await Leitura.findByPk(id);
@@ -40,7 +40,6 @@ class LeituraRepository extends ILeituraRepository {
                 throw new Error('Leitura não encontrada');
             }
             await leitura.update(newData);
-            return leitura;
         } catch (error) {
             throw new Error('Erro ao atualizar leitura: ' + error.message);
         }

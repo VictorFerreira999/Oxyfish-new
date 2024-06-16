@@ -1,4 +1,4 @@
-const IUsuarioRepository = require("../interface/iUsuarioRepository");
+const IUsuarioRepository = require("../interface/IUsuarioRepository");
 const { Usuario } = require("../data/dbContext");
 
 class UsuarioRepository extends IUsuarioRepository {
@@ -6,12 +6,12 @@ class UsuarioRepository extends IUsuarioRepository {
         super();
     }
 
-    async add(nome, email, senha) {
+    async add(data) {
         try {
-            const novoUsuario = await Usuario.create({ nome, email, senha });
+            const novoUsuario = await Usuario.create(data);
             return novoUsuario;
         } catch (error) {
-            throw new Error('Erro ao criar novo usuário: ' + error.message);
+            throw new Error('Erro ao adicionar usuário: ' + error.message);
         }
     }
 

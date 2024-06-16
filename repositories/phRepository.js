@@ -1,4 +1,4 @@
-const IPhRepository = require("../interface/iPhRepository");
+const IPhRepository = require("../interface/IPhRepository");
 const { Ph } = require("../data/dbContext");
 
 class PhRepository extends IPhRepository {
@@ -6,12 +6,12 @@ class PhRepository extends IPhRepository {
         super();
     }
 
-    async add(leitura_id, valor) {
+    async add(data) {
         try {
-            const newPh = await Ph.create({ leitura_id, valor });
-            return newPh;
+            const novoPh = await Ph.create(data);
+            return novoPh;
         } catch (error) {
-            throw new Error('Error creating pH reading: ' + error.message);
+            throw new Error('Erro ao adicionar pH: ' + error.message);
         }
     }
 
@@ -20,7 +20,7 @@ class PhRepository extends IPhRepository {
             const ph = await Ph.findByPk(id);
             return ph;
         } catch (error) {
-            throw new Error('Error fetching pH by ID: ' + error.message);
+            throw new Error('Erro ao buscar pH por ID: ' + error.message);
         }
     }
 
@@ -29,7 +29,7 @@ class PhRepository extends IPhRepository {
             const phs = await Ph.findAll();
             return phs;
         } catch (error) {
-            throw new Error('Error fetching all pH readings: ' + error.message);
+            throw new Error('Erro ao buscar todos os pHs: ' + error.message);
         }
     }
 
@@ -37,11 +37,11 @@ class PhRepository extends IPhRepository {
         try {
             const ph = await Ph.findByPk(id);
             if (!ph) {
-                throw new Error('pH reading not found');
+                throw new Error('pH não encontrado');
             }
             await ph.update(newData);
         } catch (error) {
-            throw new Error('Error updating pH reading: ' + error.message);
+            throw new Error('Erro ao atualizar pH: ' + error.message);
         }
     }
 
@@ -49,11 +49,11 @@ class PhRepository extends IPhRepository {
         try {
             const ph = await Ph.findByPk(id);
             if (!ph) {
-                throw new Error('pH reading not found');
+                throw new Error('pH não encontrado');
             }
             await ph.destroy();
         } catch (error) {
-            throw new Error('Error deleting pH reading: ' + error.message);
+            throw new Error('Erro ao deletar pH: ' + error.message);
         }
     }
 }

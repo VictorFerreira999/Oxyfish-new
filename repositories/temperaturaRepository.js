@@ -1,4 +1,4 @@
-const ITemperaturaRepository = require("../interface/iTemperaturaRepository");
+const ITemperaturaRepository = require("../interface/ITemperaturaRepository");
 const { Temperatura } = require("../data/dbContext");
 
 class TemperaturaRepository extends ITemperaturaRepository {
@@ -6,12 +6,12 @@ class TemperaturaRepository extends ITemperaturaRepository {
         super();
     }
 
-    async add(leitura_id, valor) {
+    async add(data) {
         try {
-            const newTemperatura = await Temperatura.create({ leitura_id, valor });
-            return newTemperatura;
+            const novaTemperatura = await Temperatura.create(data);
+            return novaTemperatura;
         } catch (error) {
-            throw new Error('Error creating temperature reading: ' + error.message);
+            throw new Error('Erro ao adicionar temperatura: ' + error.message);
         }
     }
 
@@ -20,7 +20,7 @@ class TemperaturaRepository extends ITemperaturaRepository {
             const temperatura = await Temperatura.findByPk(id);
             return temperatura;
         } catch (error) {
-            throw new Error('Error fetching temperature by ID: ' + error.message);
+            throw new Error('Erro ao buscar temperatura por ID: ' + error.message);
         }
     }
 
@@ -29,7 +29,7 @@ class TemperaturaRepository extends ITemperaturaRepository {
             const temperaturas = await Temperatura.findAll();
             return temperaturas;
         } catch (error) {
-            throw new Error('Error fetching all temperature readings: ' + error.message);
+            throw new Error('Erro ao buscar todas as temperaturas: ' + error.message);
         }
     }
 
@@ -37,11 +37,11 @@ class TemperaturaRepository extends ITemperaturaRepository {
         try {
             const temperatura = await Temperatura.findByPk(id);
             if (!temperatura) {
-                throw new Error('Temperature reading not found');
+                throw new Error('Temperatura não encontrada');
             }
             await temperatura.update(newData);
         } catch (error) {
-            throw new Error('Error updating temperature reading: ' + error.message);
+            throw new Error('Erro ao atualizar temperatura: ' + error.message);
         }
     }
 
@@ -49,11 +49,11 @@ class TemperaturaRepository extends ITemperaturaRepository {
         try {
             const temperatura = await Temperatura.findByPk(id);
             if (!temperatura) {
-                throw new Error('Temperature reading not found');
+                throw new Error('Temperatura não encontrada');
             }
             await temperatura.destroy();
         } catch (error) {
-            throw new Error('Error deleting temperature reading: ' + error.message);
+            throw new Error('Erro ao deletar temperatura: ' + error.message);
         }
     }
 }

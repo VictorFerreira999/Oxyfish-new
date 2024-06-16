@@ -1,5 +1,14 @@
 const { temperaturaFacade } = require('../dependency/injection');
 
+const getAllTemperaturas = async (req, res) => {
+    try {
+        const temperaturas = await temperaturaFacade.getAll();
+        res.json(temperaturas);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
 const getTemperaturaById = async (req, res) => {
     try {
         const id = req.params.id;
@@ -14,19 +23,10 @@ const getTemperaturaById = async (req, res) => {
     }
 };
 
-const getAllTemperaturas = async (req, res) => {
-    try {
-        const temperaturas = await temperaturaFacade.getAll();
-        res.json(temperaturas);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-};
-
 const addTemperatura = async (req, res) => {
     try {
-        const data = req.body;
-        const novaTemperatura = await temperaturaFacade.add(data);
+        const temperatura = req.body;
+        const novaTemperatura = await temperaturaFacade.add(temperatura);
         res.status(201).json(novaTemperatura);
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -55,8 +55,8 @@ const deleteTemperatura = async (req, res) => {
 };
 
 module.exports = {
-    getTemperaturaById,
     getAllTemperaturas,
+    getTemperaturaById,
     addTemperatura,
     updateTemperatura,
     deleteTemperatura,

@@ -1,9 +1,18 @@
-const IArduinoRepository = require("../interface/iArduinoRepository");
+const IArduinoRepository = require("../interface/IArduinoRepository");
 const { Arduino } = require("../data/dbContext");
 
 class ArduinoRepository extends IArduinoRepository {
     constructor() {
         super();
+    }
+
+    async add(data) {
+        try {
+            const novoArduino = await Arduino.create(data);
+            return novoArduino;
+        } catch (error) {
+            throw new Error('Erro ao adicionar Arduino: ' + error.message);
+        }
     }
 
     async getById(id) {
@@ -24,15 +33,6 @@ class ArduinoRepository extends IArduinoRepository {
         }
     }
 
-    async add(criatorio_id, localizacao) {
-        try {
-            const newArduino = await Arduino.create({ criatorio_id, localizacao });
-            return newArduino;
-        } catch (error) {
-            throw new Error('Erro ao criar novo Arduino: ' + error.message);
-        }
-    }
-
     async update(id, newData) {
         try {
             const arduino = await Arduino.findByPk(id);
@@ -40,7 +40,6 @@ class ArduinoRepository extends IArduinoRepository {
                 throw new Error('Arduino não encontrado');
             }
             await arduino.update(newData);
-            return arduino;
         } catch (error) {
             throw new Error('Erro ao atualizar Arduino: ' + error.message);
         }

@@ -3,12 +3,12 @@ class PeixeFacade {
         this.peixeApplication = peixeApplication;
     }
 
-    async add(peixe) {
+    async add(data) {
         try {
-            const novoPeixe = await this.peixeApplication.add(peixe);
+            const novoPeixe = await this.peixeApplication.add(data);
             return novoPeixe;
         } catch (error) {
-            throw new Error("Erro ao adicionar peixe: " + error.message);
+            throw new Error('Erro ao adicionar Peixe: ' + error.message);
         }
     }
 
@@ -17,7 +17,7 @@ class PeixeFacade {
             const peixe = await this.peixeApplication.getById(id);
             return peixe;
         } catch (error) {
-            throw new Error("Erro ao obter peixe por ID: " + error.message);
+            throw new Error('Erro ao obter Peixe por ID: ' + error.message);
         }
     }
 
@@ -26,7 +26,7 @@ class PeixeFacade {
             const peixes = await this.peixeApplication.getAll();
             return peixes;
         } catch (error) {
-            throw new Error("Erro ao obter todos os peixes: " + error.message);
+            throw new Error('Erro ao obter todos os Peixes: ' + error.message);
         }
     }
 
@@ -34,7 +34,7 @@ class PeixeFacade {
         try {
             await this.peixeApplication.update(id, newData);
         } catch (error) {
-            throw new Error("Erro ao atualizar peixe: " + error.message);
+            throw new Error('Erro ao atualizar Peixe: ' + error.message);
         }
     }
 
@@ -42,7 +42,7 @@ class PeixeFacade {
         try {
             await this.peixeApplication.delete(id);
         } catch (error) {
-            throw new Error("Erro ao deletar peixe: " + error.message);
+            throw new Error('Erro ao deletar Peixe: ' + error.message);
         }
     }
 }

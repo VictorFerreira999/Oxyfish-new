@@ -1,5 +1,14 @@
 const { leituraFacade } = require('../dependency/injection');
 
+const getAllLeituras = async (req, res) => {
+    try {
+        const leituras = await leituraFacade.getAll();
+        res.json(leituras);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
 const getLeituraById = async (req, res) => {
     try {
         const id = req.params.id;
@@ -14,19 +23,10 @@ const getLeituraById = async (req, res) => {
     }
 };
 
-const getAllLeituras = async (req, res) => {
-    try {
-        const leituras = await leituraFacade.getAll();
-        res.json(leituras);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-};
-
 const addLeitura = async (req, res) => {
     try {
-        const data = req.body;
-        const novaLeitura = await leituraFacade.add(data);
+        const leitura = req.body;
+        const novaLeitura = await leituraFacade.add(leitura);
         res.status(201).json(novaLeitura);
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -55,8 +55,8 @@ const deleteLeitura = async (req, res) => {
 };
 
 module.exports = {
-    getLeituraById,
     getAllLeituras,
+    getLeituraById,
     addLeitura,
     updateLeitura,
     deleteLeitura,

@@ -1,16 +1,14 @@
-const IPhRepository = require("../interface/iPhRepository");
-
 class PhApplication {
     constructor(phRepository) {
         this.phRepository = phRepository;
     }
 
-    async add(leitura_id, valor) {
+    async add(data) {
         try {
-            const newPh = await this.phRepository.add(leitura_id, valor);
-            return newPh;
+            const novoPh = await this.phRepository.add(data);
+            return novoPh;
         } catch (error) {
-            throw new Error("Error adding pH reading: " + error.message);
+            throw new Error('Erro ao adicionar pH: ' + error.message);
         }
     }
 
@@ -19,7 +17,7 @@ class PhApplication {
             const ph = await this.phRepository.getById(id);
             return ph;
         } catch (error) {
-            throw new Error("Error fetching pH by ID: " + error.message);
+            throw new Error('Erro ao buscar pH por ID: ' + error.message);
         }
     }
 
@@ -28,7 +26,7 @@ class PhApplication {
             const phs = await this.phRepository.getAll();
             return phs;
         } catch (error) {
-            throw new Error("Error fetching all pH readings: " + error.message);
+            throw new Error('Erro ao buscar todos os pHs: ' + error.message);
         }
     }
 
@@ -36,7 +34,7 @@ class PhApplication {
         try {
             await this.phRepository.update(id, newData);
         } catch (error) {
-            throw new Error("Error updating pH reading: " + error.message);
+            throw new Error('Erro ao atualizar pH: ' + error.message);
         }
     }
 
@@ -44,7 +42,7 @@ class PhApplication {
         try {
             await this.phRepository.delete(id);
         } catch (error) {
-            throw new Error("Error deleting pH reading: " + error.message);
+            throw new Error('Erro ao deletar pH: ' + error.message);
         }
     }
 }

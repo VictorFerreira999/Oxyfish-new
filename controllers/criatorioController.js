@@ -1,5 +1,14 @@
 const { criatorioFacade } = require('../dependency/injection');
 
+const getAllCriatorios = async (req, res) => {
+    try {
+        const criatorios = await criatorioFacade.getAll();
+        res.json(criatorios);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
 const getCriatorioById = async (req, res) => {
     try {
         const id = req.params.id;
@@ -14,19 +23,10 @@ const getCriatorioById = async (req, res) => {
     }
 };
 
-const getAllCriatorios = async (req, res) => {
-    try {
-        const criatorios = await criatorioFacade.getAll();
-        res.json(criatorios);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-};
-
 const addCriatorio = async (req, res) => {
     try {
-        const data = req.body;
-        const novoCriatorio = await criatorioFacade.add(data);
+        const criatorio = req.body;
+        const novoCriatorio = await criatorioFacade.add(criatorio);
         res.status(201).json(novoCriatorio);
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -55,8 +55,8 @@ const deleteCriatorio = async (req, res) => {
 };
 
 module.exports = {
-    getCriatorioById,
     getAllCriatorios,
+    getCriatorioById,
     addCriatorio,
     updateCriatorio,
     deleteCriatorio,

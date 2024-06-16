@@ -1,4 +1,4 @@
-const IOxigenioRepository = require("../interface/iOxigenioRepository");
+const IOxigenioRepository = require("../interface/IOxigenioRepository");
 const { Oxigenio } = require("../data/dbContext");
 
 class OxigenioRepository extends IOxigenioRepository {
@@ -6,12 +6,12 @@ class OxigenioRepository extends IOxigenioRepository {
         super();
     }
 
-    async add(leitura_id, valor) {
+    async add(data) {
         try {
-            const newOxigenio = await Oxigenio.create({ leitura_id, valor });
-            return newOxigenio;
+            const novoOxigenio = await Oxigenio.create(data);
+            return novoOxigenio;
         } catch (error) {
-            throw new Error('Error creating oxygen level reading: ' + error.message);
+            throw new Error('Erro ao adicionar oxigênio: ' + error.message);
         }
     }
 
@@ -20,7 +20,7 @@ class OxigenioRepository extends IOxigenioRepository {
             const oxigenio = await Oxigenio.findByPk(id);
             return oxigenio;
         } catch (error) {
-            throw new Error('Error fetching oxygen level by ID: ' + error.message);
+            throw new Error('Erro ao buscar oxigênio por ID: ' + error.message);
         }
     }
 
@@ -29,7 +29,7 @@ class OxigenioRepository extends IOxigenioRepository {
             const oxigenios = await Oxigenio.findAll();
             return oxigenios;
         } catch (error) {
-            throw new Error('Error fetching all oxygen level readings: ' + error.message);
+            throw new Error('Erro ao buscar todos os oxigênios: ' + error.message);
         }
     }
 
@@ -37,11 +37,11 @@ class OxigenioRepository extends IOxigenioRepository {
         try {
             const oxigenio = await Oxigenio.findByPk(id);
             if (!oxigenio) {
-                throw new Error('Oxygen level reading not found');
+                throw new Error('Oxigênio não encontrado');
             }
             await oxigenio.update(newData);
         } catch (error) {
-            throw new Error('Error updating oxygen level reading: ' + error.message);
+            throw new Error('Erro ao atualizar oxigênio: ' + error.message);
         }
     }
 
@@ -49,11 +49,11 @@ class OxigenioRepository extends IOxigenioRepository {
         try {
             const oxigenio = await Oxigenio.findByPk(id);
             if (!oxigenio) {
-                throw new Error('Oxygen level reading not found');
+                throw new Error('Oxigênio não encontrado');
             }
             await oxigenio.destroy();
         } catch (error) {
-            throw new Error('Error deleting oxygen level reading: ' + error.message);
+            throw new Error('Erro ao deletar oxigênio: ' + error.message);
         }
     }
 }

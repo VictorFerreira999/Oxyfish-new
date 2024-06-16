@@ -1,5 +1,14 @@
 const { peixeFacade } = require('../dependency/injection');
 
+const getAllPeixes = async (req, res) => {
+    try {
+        const peixes = await peixeFacade.getAll();
+        res.json(peixes);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
 const getPeixeById = async (req, res) => {
     try {
         const id = req.params.id;
@@ -14,19 +23,10 @@ const getPeixeById = async (req, res) => {
     }
 };
 
-const getAllPeixes = async (req, res) => {
-    try {
-        const peixes = await peixeFacade.getAll();
-        res.json(peixes);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-};
-
 const addPeixe = async (req, res) => {
     try {
-        const data = req.body;
-        const novoPeixe = await peixeFacade.add(data);
+        const peixe = req.body;
+        const novoPeixe = await peixeFacade.add(peixe);
         res.status(201).json(novoPeixe);
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -55,8 +55,8 @@ const deletePeixe = async (req, res) => {
 };
 
 module.exports = {
-    getPeixeById,
     getAllPeixes,
+    getPeixeById,
     addPeixe,
     updatePeixe,
     deletePeixe,

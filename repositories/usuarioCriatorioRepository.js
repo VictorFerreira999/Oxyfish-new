@@ -1,4 +1,4 @@
-const IUsuarioCriatorioRepository = require("../interface/iUsuarioCriatorioRepository");
+const IUsuarioCriatorioRepository = require("../interface/IUsuarioCriatorioRepository");
 const { UsuarioCriatorio } = require("../data/dbContext");
 
 class UsuarioCriatorioRepository extends IUsuarioCriatorioRepository {
@@ -6,42 +6,54 @@ class UsuarioCriatorioRepository extends IUsuarioCriatorioRepository {
         super();
     }
 
-    async getByUsuarioId(usuario_id) {
+    async add(data) {
+        const { usuario_id, criatorio_id } = data;
         try {
-            const usuarioCriatorio = await UsuarioCriatorio.findAll({
-                where: { usuario_id }
-            });
-            return usuarioCriatorio;
+            const novaAssociacao = await UsuarioCriatorio.create({ usuario_id, criatorio_id });
+            return novaAssociacao;
         } catch (error) {
-            throw new Error('Erro ao buscar associações Usuário-Criadouro: ' + error.message);
+            throw new Error('Erro ao adicionar associação Usuário-Criadouro: ' + error.message);
         }
     }
 
-    async getByCriatorioId(criatorio_id) {
+    async getById(usuario_id, criatorio_id) {
         try {
-            const usuarioCriatorio = await UsuarioCriatorio.findAll({
-                where: { criatorio_id }
-            });
-            return usuarioCriatorio;
+            const associacao = await UsuarioCriatorio.findOne({ where: { usuario_id, criatorio_id } });
+            return associacao;
         } catch (error) {
-            throw new Error('Erro ao buscar associações Usuário-Criadouro: ' + error.message);
+            throw new Error('Erro ao buscar associação Usuário-Criadouro por ID: ' + error.message);
         }
     }
 
-    async add(usuario_id, criatorio_id) {
+    async getAll() {
         try {
-            const newUsuarioCriatorio = await UsuarioCriatorio.create({ usuario_id, criatorio_id });
-            return newUsuarioCriatorio;
+            const associacoes = await UsuarioCriatorio.findAll();
+            return associacoes;
         } catch (error) {
-            throw new Error('Erro ao criar associação Usuário-Criadouro: ' + error.message);
+            throw new Error('Erro ao buscar todas as associações Usuário-Criadouro: ' + error.message);
+        }
+    }
+
+    async update(usuario_id, criatorio_id, newData) {
+        try {
+            const associacao = await UsuarioCriatorio.findOne({ where: { usuario_id, criatorio_id } });
+            if (!associacao) {
+                throw new Error('Associação Usuário-Criadouro não encontrada');
+            }
+            await associacao.update(newData);
+            return associacao;
+        } catch (error) {
+            throw new Error('Erro ao atualizar associação Usuário-Criadouro: ' + error.message);
         }
     }
 
     async delete(usuario_id, criatorio_id) {
         try {
-            await UsuarioCriatorio.destroy({
-                where: { usuario_id, criatorio_id }
-            });
+            const associacao = await UsuarioCriatorio.findOne({ where: { usuario_id, criatorio_id } });
+            if (!associacao) {
+                throw new Error('Associação Usuário-Criadouro não encontrada');
+            }
+            await associacao.destroy();
         } catch (error) {
             throw new Error('Erro ao deletar associação Usuário-Criadouro: ' + error.message);
         }

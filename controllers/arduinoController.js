@@ -1,5 +1,14 @@
 const { arduinoFacade } = require('../dependency/injection');
 
+const getAllArduinos = async (req, res) => {
+    try {
+        const arduinos = await arduinoFacade.getAll();
+        res.json(arduinos);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
 const getArduinoById = async (req, res) => {
     try {
         const id = req.params.id;
@@ -14,19 +23,10 @@ const getArduinoById = async (req, res) => {
     }
 };
 
-const getAllArduinos = async (req, res) => {
-    try {
-        const arduinos = await arduinoFacade.getAll();
-        res.json(arduinos);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-};
-
 const addArduino = async (req, res) => {
     try {
-        const data = req.body;
-        const novoArduino = await arduinoFacade.add(data);
+        const arduino = req.body;
+        const novoArduino = await arduinoFacade.add(arduino);
         res.status(201).json(novoArduino);
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -55,8 +55,8 @@ const deleteArduino = async (req, res) => {
 };
 
 module.exports = {
-    getArduinoById,
     getAllArduinos,
+    getArduinoById,
     addArduino,
     updateArduino,
     deleteArduino,

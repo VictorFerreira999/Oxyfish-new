@@ -1,5 +1,14 @@
 const { oxigenioFacade } = require('../dependency/injection');
 
+const getAllOxigenios = async (req, res) => {
+    try {
+        const oxigenios = await oxigenioFacade.getAll();
+        res.json(oxigenios);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
 const getOxigenioById = async (req, res) => {
     try {
         const id = req.params.id;
@@ -14,19 +23,10 @@ const getOxigenioById = async (req, res) => {
     }
 };
 
-const getAllOxigenios = async (req, res) => {
-    try {
-        const oxigenios = await oxigenioFacade.getAll();
-        res.json(oxigenios);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-};
-
 const addOxigenio = async (req, res) => {
     try {
-        const data = req.body;
-        const novoOxigenio = await oxigenioFacade.add(data);
+        const oxigenio = req.body;
+        const novoOxigenio = await oxigenioFacade.add(oxigenio);
         res.status(201).json(novoOxigenio);
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -55,8 +55,8 @@ const deleteOxigenio = async (req, res) => {
 };
 
 module.exports = {
-    getOxigenioById,
     getAllOxigenios,
+    getOxigenioById,
     addOxigenio,
     updateOxigenio,
     deleteOxigenio,

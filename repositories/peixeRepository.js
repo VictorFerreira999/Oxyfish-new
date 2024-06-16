@@ -1,9 +1,18 @@
-const IPeixeRepository = require("../interface/iPeixeRepository");
+const IPeixeRepository = require("../interface/IPeixeRepository");
 const { Peixe } = require("../data/dbContext");
 
 class PeixeRepository extends IPeixeRepository {
     constructor() {
         super();
+    }
+
+    async add(data) {
+        try {
+            const novoPeixe = await Peixe.create(data);
+            return novoPeixe;
+        } catch (error) {
+            throw new Error('Erro ao adicionar peixe: ' + error.message);
+        }
     }
 
     async getById(id) {
@@ -24,15 +33,6 @@ class PeixeRepository extends IPeixeRepository {
         }
     }
 
-    async add(criatorio_id, especie, quantidade) {
-        try {
-            const newPeixe = await Peixe.create({ criatorio_id, especie, quantidade });
-            return newPeixe;
-        } catch (error) {
-            throw new Error('Erro ao criar novo peixe: ' + error.message);
-        }
-    }
-
     async update(id, newData) {
         try {
             const peixe = await Peixe.findByPk(id);
@@ -40,7 +40,6 @@ class PeixeRepository extends IPeixeRepository {
                 throw new Error('Peixe não encontrado');
             }
             await peixe.update(newData);
-            return peixe;
         } catch (error) {
             throw new Error('Erro ao atualizar peixe: ' + error.message);
         }

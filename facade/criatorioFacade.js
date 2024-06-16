@@ -3,12 +3,12 @@ class CriatorioFacade {
         this.criatorioApplication = criatorioApplication;
     }
 
-    async add(criatorio) {
+    async add(data) {
         try {
-            const novoCriatorio = await this.criatorioApplication.add(criatorio);
+            const novoCriatorio = await this.criatorioApplication.add(data);
             return novoCriatorio;
         } catch (error) {
-            throw new Error("Erro ao adicionar criatório: " + error.message);
+            throw new Error('Erro ao adicionar Criatório: ' + error.message);
         }
     }
 
@@ -17,7 +17,7 @@ class CriatorioFacade {
             const criatorio = await this.criatorioApplication.getById(id);
             return criatorio;
         } catch (error) {
-            throw new Error("Erro ao obter criatório por ID: " + error.message);
+            throw new Error('Erro ao obter Criatório por ID: ' + error.message);
         }
     }
 
@@ -26,7 +26,7 @@ class CriatorioFacade {
             const criatorios = await this.criatorioApplication.getAll();
             return criatorios;
         } catch (error) {
-            throw new Error("Erro ao obter todos os criatórios: " + error.message);
+            throw new Error('Erro ao obter todos os Criatórios: ' + error.message);
         }
     }
 
@@ -34,7 +34,7 @@ class CriatorioFacade {
         try {
             await this.criatorioApplication.update(id, newData);
         } catch (error) {
-            throw new Error("Erro ao atualizar criatório: " + error.message);
+            throw new Error('Erro ao atualizar Criatório: ' + error.message);
         }
     }
 
@@ -42,7 +42,7 @@ class CriatorioFacade {
         try {
             await this.criatorioApplication.delete(id);
         } catch (error) {
-            throw new Error("Erro ao deletar criatório: " + error.message);
+            throw new Error('Erro ao deletar Criatório: ' + error.message);
         }
     }
 }

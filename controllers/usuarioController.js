@@ -1,5 +1,14 @@
 const { usuarioFacade } = require('../dependency/injection');
 
+const getAllUsuarios = async (req, res) => {
+    try {
+        const usuarios = await usuarioFacade.getAll();
+        res.json(usuarios);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
 const getUsuarioById = async (req, res) => {
     try {
         const id = req.params.id;
@@ -14,19 +23,10 @@ const getUsuarioById = async (req, res) => {
     }
 };
 
-const getAllUsuarios = async (req, res) => {
-    try {
-        const usuarios = await usuarioFacade.getAll();
-        res.json(usuarios);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-};
-
 const addUsuario = async (req, res) => {
     try {
-        const data = req.body;
-        const novoUsuario = await usuarioFacade.add(data);
+        const usuario = req.body;
+        const novoUsuario = await usuarioFacade.add(usuario);
         res.status(201).json(novoUsuario);
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -55,8 +55,8 @@ const deleteUsuario = async (req, res) => {
 };
 
 module.exports = {
-    getUsuarioById,
     getAllUsuarios,
+    getUsuarioById,
     addUsuario,
     updateUsuario,
     deleteUsuario,

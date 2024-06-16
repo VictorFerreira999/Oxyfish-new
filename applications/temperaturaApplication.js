@@ -1,16 +1,14 @@
-const ITemperaturaRepository = require("../interface/iTemperaturaRepository");
-
 class TemperaturaApplication {
     constructor(temperaturaRepository) {
         this.temperaturaRepository = temperaturaRepository;
     }
 
-    async add(leitura_id, valor) {
+    async add(data) {
         try {
-            const newTemperatura = await this.temperaturaRepository.add(leitura_id, valor);
-            return newTemperatura;
+            const novaTemperatura = await this.temperaturaRepository.add(data);
+            return novaTemperatura;
         } catch (error) {
-            throw new Error("Error adding temperature reading: " + error.message);
+            throw new Error('Erro ao adicionar temperatura: ' + error.message);
         }
     }
 
@@ -19,7 +17,7 @@ class TemperaturaApplication {
             const temperatura = await this.temperaturaRepository.getById(id);
             return temperatura;
         } catch (error) {
-            throw new Error("Error fetching temperature by ID: " + error.message);
+            throw new Error('Erro ao buscar temperatura por ID: ' + error.message);
         }
     }
 
@@ -28,7 +26,7 @@ class TemperaturaApplication {
             const temperaturas = await this.temperaturaRepository.getAll();
             return temperaturas;
         } catch (error) {
-            throw new Error("Error fetching all temperature readings: " + error.message);
+            throw new Error('Erro ao buscar todas as temperaturas: ' + error.message);
         }
     }
 
@@ -36,7 +34,7 @@ class TemperaturaApplication {
         try {
             await this.temperaturaRepository.update(id, newData);
         } catch (error) {
-            throw new Error("Error updating temperature reading: " + error.message);
+            throw new Error('Erro ao atualizar temperatura: ' + error.message);
         }
     }
 
@@ -44,7 +42,7 @@ class TemperaturaApplication {
         try {
             await this.temperaturaRepository.delete(id);
         } catch (error) {
-            throw new Error("Error deleting temperature reading: " + error.message);
+            throw new Error('Erro ao deletar temperatura: ' + error.message);
         }
     }
 }

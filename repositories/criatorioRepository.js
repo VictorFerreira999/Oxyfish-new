@@ -1,9 +1,18 @@
-const ICriatorioRepository = require("../interface/iCriatorioRepository");
+const ICriatorioRepository = require("../interface/ICriatorioRepository");
 const { Criatorio } = require("../data/dbContext");
 
 class CriatorioRepository extends ICriatorioRepository {
     constructor() {
         super();
+    }
+
+    async add(data) {
+        try {
+            const novoCriatorio = await Criatorio.create(data);
+            return novoCriatorio;
+        } catch (error) {
+            throw new Error('Erro ao adicionar criatório: ' + error.message);
+        }
     }
 
     async getById(id) {
@@ -24,15 +33,6 @@ class CriatorioRepository extends ICriatorioRepository {
         }
     }
 
-    async add(usuario_id, nome, localizacao) {
-        try {
-            const newCriatorio = await Criatorio.create({ usuario_id, nome, localizacao });
-            return newCriatorio;
-        } catch (error) {
-            throw new Error('Erro ao criar novo criatório: ' + error.message);
-        }
-    }
-
     async update(id, newData) {
         try {
             const criatorio = await Criatorio.findByPk(id);
@@ -40,7 +40,6 @@ class CriatorioRepository extends ICriatorioRepository {
                 throw new Error('Criatório não encontrado');
             }
             await criatorio.update(newData);
-            return criatorio;
         } catch (error) {
             throw new Error('Erro ao atualizar criatório: ' + error.message);
         }

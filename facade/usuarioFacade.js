@@ -1,27 +1,50 @@
 class UsuarioFacade {
-  constructor(usuarioRepository) {
-      this.usuarioRepository = usuarioRepository;
-  }
+    constructor(usuarioApplication) {
+        this.usuarioApplication = usuarioApplication;
+    }
 
-  async getById(id) {
-      return await this.usuarioRepository.getById(id);
-  }
+    async add(data) {
+        try {
+            const novoUsuario = await this.usuarioApplication.add(data);
+            return novoUsuario;
+        } catch (error) {
+            throw new Error('Erro ao adicionar Usuário: ' + error.message);
+        }
+    }
 
-  async getAll() {
-      return await this.usuarioRepository.getAll();
-  }
+    async getById(id) {
+        try {
+            const usuario = await this.usuarioApplication.getById(id);
+            return usuario;
+        } catch (error) {
+            throw new Error('Erro ao obter Usuário por ID: ' + error.message);
+        }
+    }
 
-  async add(nome, email, senha) {
-      return await this.usuarioRepository.add(nome, email, senha);
-  }
+    async getAll() {
+        try {
+            const usuarios = await this.usuarioApplication.getAll();
+            return usuarios;
+        } catch (error) {
+            throw new Error('Erro ao obter todos os Usuários: ' + error.message);
+        }
+    }
 
-  async update(id, newData) {
-      await this.usuarioRepository.update(id, newData);
-  }
+    async update(id, newData) {
+        try {
+            await this.usuarioApplication.update(id, newData);
+        } catch (error) {
+            throw new Error('Erro ao atualizar Usuário: ' + error.message);
+        }
+    }
 
-  async delete(id) {
-      await this.usuarioRepository.delete(id);
-  }
+    async delete(id) {
+        try {
+            await this.usuarioApplication.delete(id);
+        } catch (error) {
+            throw new Error('Erro ao deletar Usuário: ' + error.message);
+        }
+    }
 }
 
 module.exports = UsuarioFacade;
