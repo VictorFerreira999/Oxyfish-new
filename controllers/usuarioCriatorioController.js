@@ -1,3 +1,5 @@
+// controllers/usuarioCriatorioController.js
+
 const { usuarioCriatorioFacade } = require('../dependency/injection');
 
 const getUsuarioCriatorioById = async (req, res) => {

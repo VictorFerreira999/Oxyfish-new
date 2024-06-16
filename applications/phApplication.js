@@ -1,4 +1,4 @@
-const IPhRepository = require("../interface/IPhRepository");
+const IPhRepository = require("../interface/iPhRepository");
 
 class PhApplication {
     constructor(phRepository) {
