@@ -1,27 +1,50 @@
 class LeituraFacade {
-  constructor(leituraRepository) {
-      this.leituraRepository = leituraRepository;
-  }
+    constructor(leituraApplication) {
+        this.leituraApplication = leituraApplication;
+    }
 
-  async getById(id) {
-      return await this.leituraRepository.getById(id);
-  }
+    async add(leitura) {
+        try {
+            const novaLeitura = await this.leituraApplication.add(leitura);
+            return novaLeitura;
+        } catch (error) {
+            throw new Error("Erro ao adicionar leitura: " + error.message);
+        }
+    }
 
-  async getAll() {
-      return await this.leituraRepository.getAll();
-  }
+    async getById(id) {
+        try {
+            const leitura = await this.leituraApplication.getById(id);
+            return leitura;
+        } catch (error) {
+            throw new Error("Erro ao obter leitura por ID: " + error.message);
+        }
+    }
 
-  async add(data) {
-      return await this.leituraRepository.add(data);
-  }
+    async getAll() {
+        try {
+            const leituras = await this.leituraApplication.getAll();
+            return leituras;
+        } catch (error) {
+            throw new Error("Erro ao obter todas as leituras: " + error.message);
+        }
+    }
 
-  async update(id, newData) {
-      await this.leituraRepository.update(id, newData);
-  }
+    async update(id, newData) {
+        try {
+            await this.leituraApplication.update(id, newData);
+        } catch (error) {
+            throw new Error("Erro ao atualizar leitura: " + error.message);
+        }
+    }
 
-  async delete(id) {
-      await this.leituraRepository.delete(id);
-  }
+    async delete(id) {
+        try {
+            await this.leituraApplication.delete(id);
+        } catch (error) {
+            throw new Error("Erro ao deletar leitura: " + error.message);
+        }
+    }
 }
 
 module.exports = LeituraFacade;

@@ -1,23 +1,50 @@
-class UsuarioCriatorioFacade {
-   constructor(usuarioCriatorioRepository) {
-       this.usuarioCriatorioRepository = usuarioCriatorioRepository;
-   }
+class UsuarioFacade {
+    constructor(usuarioApplication) {
+        this.usuarioApplication = usuarioApplication;
+    }
 
-   async getByUsuarioId(usuario_id) {
-       return await this.usuarioCriatorioRepository.getByUsuarioId(usuario_id);
-   }
+    async add(usuario) {
+        try {
+            const novoUsuario = await this.usuarioApplication.add(usuario);
+            return novoUsuario;
+        } catch (error) {
+            throw new Error("Erro ao adicionar usuário: " + error.message);
+        }
+    }
 
-   async getByCriatorioId(criatorio_id) {
-       return await this.usuarioCriatorioRepository.getByCriatorioId(criatorio_id);
-   }
+    async getById(id) {
+        try {
+            const usuario = await this.usuarioApplication.getById(id);
+            return usuario;
+        } catch (error) {
+            throw new Error("Erro ao obter usuário por ID: " + error.message);
+        }
+    }
 
-   async add(usuario_id, criatorio_id) {
-       return await this.usuarioCriatorioRepository.add(usuario_id, criatorio_id);
-   }
+    async getAll() {
+        try {
+            const usuarios = await this.usuarioApplication.getAll();
+            return usuarios;
+        } catch (error) {
+            throw new Error("Erro ao obter todos os usuários: " + error.message);
+        }
+    }
 
-   async delete(usuario_id, criatorio_id) {
-       await this.usuarioCriatorioRepository.delete(usuario_id, criatorio_id);
-   }
+    async update(id, newData) {
+        try {
+            await this.usuarioApplication.update(id, newData);
+        } catch (error) {
+            throw new Error("Erro ao atualizar usuário: " + error.message);
+        }
+    }
+
+    async delete(id) {
+        try {
+            await this.usuarioApplication.delete(id);
+        } catch (error) {
+            throw new Error("Erro ao deletar usuário: " + error.message);
+        }
+    }
 }
 
-module.exports = UsuarioCriatorioFacade;
+module.exports = UsuarioFacade;

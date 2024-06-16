@@ -1,27 +1,50 @@
 class ArduinoFacade {
-  constructor(arduinoRepository) {
-      this.arduinoRepository = arduinoRepository;
-  }
+    constructor(arduinoApplication) {
+        this.arduinoApplication = arduinoApplication;
+    }
 
-  async getById(id) {
-      return await this.arduinoRepository.getById(id);
-  }
+    async add(arduino) {
+        try {
+            const novoArduino = await this.arduinoApplication.add(arduino);
+            return novoArduino;
+        } catch (error) {
+            throw new Error("Erro ao adicionar Arduino: " + error.message);
+        }
+    }
 
-  async getAll() {
-      return await this.arduinoRepository.getAll();
-  }
+    async getById(id) {
+        try {
+            const arduino = await this.arduinoApplication.getById(id);
+            return arduino;
+        } catch (error) {
+            throw new Error("Erro ao obter Arduino por ID: " + error.message);
+        }
+    }
 
-  async add(data) {
-      return await this.arduinoRepository.add(data);
-  }
+    async getAll() {
+        try {
+            const arduinos = await this.arduinoApplication.getAll();
+            return arduinos;
+        } catch (error) {
+            throw new Error("Erro ao obter todos os Arduinos: " + error.message);
+        }
+    }
 
-  async update(id, newData) {
-      await this.arduinoRepository.update(id, newData);
-  }
+    async update(id, newData) {
+        try {
+            await this.arduinoApplication.update(id, newData);
+        } catch (error) {
+            throw new Error("Erro ao atualizar Arduino: " + error.message);
+        }
+    }
 
-  async delete(id) {
-      await this.arduinoRepository.delete(id);
-  }
+    async delete(id) {
+        try {
+            await this.arduinoApplication.delete(id);
+        } catch (error) {
+            throw new Error("Erro ao deletar Arduino: " + error.message);
+        }
+    }
 }
 
 module.exports = ArduinoFacade;
