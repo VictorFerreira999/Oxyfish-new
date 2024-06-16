@@ -1,4 +1,4 @@
-const IUsuarioCriatorioRepository = require("../interface/IUsuarioCriatorioRepository");
+const IUsuarioCriatorioRepository = require("../interface/iUsuarioCriatorioRepository");
 const { UsuarioCriatorio } = require("../data/dbContext");
 
 class UsuarioCriatorioRepository extends IUsuarioCriatorioRepository {

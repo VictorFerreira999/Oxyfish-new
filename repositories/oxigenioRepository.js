@@ -1,4 +1,4 @@
-const IOxigenioRepository = require("../interface/IOxigenioRepository");
+const IOxigenioRepository = require("../interface/iOxigenioRepository");
 const { Oxigenio } = require("../data/dbContext");
 
 class OxigenioRepository extends iOxigenioRepository {

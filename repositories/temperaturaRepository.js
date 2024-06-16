@@ -1,4 +1,4 @@
-const ITemperaturaRepository = require("../interface/ITemperaturaRepository");
+const ITemperaturaRepository = require("../interface/iTemperaturaRepository");
 const { Temperatura } = require("../data/dbContext");
 
 class TemperaturaRepository extends ITemperaturaRepository {
