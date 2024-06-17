@@ -74,23 +74,35 @@ def random_value(min_val, max_val):
 
 # Create random data for temperature, pH, and oxygen
 for _ in range(10):  # Number of random inserts
+    # Insert temperatura
+    temperatura_valor = random_value(20.0, 30.0)
     temperatura_data = {
         'leitura_id': leitura_id,
-        'valor': random_value(20.0, 30.0)  # Temperature range in Celsius
+        'valor': temperatura_valor
     }
-    post_request(f'{base_url}/temperatura', temperatura_data, headers)
+    temperatura_response = post_request(f'{base_url}/temperatura', temperatura_data, headers)
+    if not (20.0 <= temperatura_valor <= 30.0):
+        print(f'res.status(400).json({{ message: "Valor de temperatura {temperatura_valor} está fora do intervalo aceitável." }})')
 
+    # Insert ph
+    ph_valor = random_value(6.0, 9.0)
     ph_data = {
         'leitura_id': leitura_id,
-        'valor': random_value(6.0, 9.0)  # pH range
+        'valor': ph_valor
     }
-    post_request(f'{base_url}/ph', ph_data, headers)
+    ph_response = post_request(f'{base_url}/ph', ph_data, headers)
+    if not (6.0 <= ph_valor <= 9.0):
+        print(f'res.status(400).json({{ message: "Valor de pH {ph_valor} está fora do intervalo aceitável." }})')
 
+    # Insert oxigenio
+    oxigenio_valor = random_value(5.0, 10.0)
     oxigenio_data = {
         'leitura_id': leitura_id,
-        'valor': random_value(5.0, 10.0)  # Oxygen level range in mg/L
+        'valor': oxigenio_valor
     }
-    post_request(f'{base_url}/oxigenio', oxigenio_data, headers)
+    oxigenio_response = post_request(f'{base_url}/oxigenio', oxigenio_data, headers)
+    if not (5.0 <= oxigenio_valor <= 10.0):
+        print(f'res.status(400).json({{ message: "Valor de oxigênio {oxigenio_valor} está fora do intervalo aceitável." }})')
 
     # Pause between requests to avoid overloading the server
     time.sleep(1)
