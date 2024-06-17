@@ -1,9 +1,15 @@
+// routes/authRoutes.js
 const express = require('express');
-const authController = require('../controllers/authController');
-
 const router = express.Router();
 
-router.post('/signup', authController.signup); // Rota para registrar um novo usuário
-router.post('/login', authController.login);   // Rota para realizar o login
+router.post('/signup', (req, res) => {
+    // Lógica para signup
+    res.send('Usuário registrado');
+});
+
+router.post('/login', (req, res) => {
+    // Lógica para login
+    res.send('Usuário logado');
+});
 
 module.exports = router;
