@@ -1,7 +1,6 @@
 const express = require('express');
 const app = express();
 
-const authRoutes = require('./routes/authRoutes');
 const criatorioRoutes = require('./routes/criatorioRoutes');
 const usuarioRoutes = require('./routes/usuarioRoutes');
 const peixeRoutes = require('./routes/peixeRoutes');
@@ -11,6 +10,7 @@ const usuarioCriatorioRoutes = require('./routes/usuarioCriatorioRoutes');
 const temperaturaRoutes = require('./routes/temperaturaRoutes');
 const phRoutes = require('./routes/phRoutes');
 const oxigenioRoutes = require('./routes/oxigenioRoutes');
+const isAuth = require("./middleware/isAuth"); // Importando o middleware isAuth
 
 // Middleware para parsing de JSON
 app.use(express.json());
@@ -18,7 +18,7 @@ app.use(express.json());
 // Definição das rotas
 app.use('/api/auth', authRoutes);
 app.use('/api/criatorio', criatorioRoutes);
-app.use('/api/usuario', usuarioRoutes);
+app.use('/api/usuario',isAuth, usuarioRoutes);
 app.use('/api/peixe', peixeRoutes);
 app.use('/api/leitura', leituraRoutes);
 app.use('/api/arduino', arduinoRoutes);
@@ -26,6 +26,7 @@ app.use('/api/usuario-criatorio', usuarioCriatorioRoutes);
 app.use('/api/temperatura', temperaturaRoutes);
 app.use('/api/ph', phRoutes);
 app.use('/api/oxigenio', oxigenioRoutes);
+
 
 // Porta do servidor
 const PORT = process.env.PORT || 3000;
