@@ -10,7 +10,7 @@ const arduinoRoutes = require('./routes/arduinoRoutes');
 const usuarioCriatorioRoutes = require('./routes/usuarioCriatorioRoutes');
 const temperaturaRoutes = require('./routes/temperaturaRoutes');
 const phRoutes = require('./routes/phRoutes');
-const oxigenioRoutes = require('./routes/oxigenioRoutes');
+const oxigenioRoutes = require('./routes/oxigenioRoutes');const isAuth = require("./middleware/isAuth");
 
 // Middleware para parsing de JSON
 app.use(express.json());
