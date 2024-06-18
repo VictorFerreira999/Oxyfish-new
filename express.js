@@ -18,7 +18,7 @@ app.use(express.json());
 // Definição das rotas
 app.use('/api/auth', authRoutes);
 app.use('/api/criatorio', criatorioRoutes);
-app.use('/api/usuario', usuarioRoutes);
+app.use('/api/usuario',isAuth, usuarioRoutes);
 app.use('/api/peixe', peixeRoutes);
 app.use('/api/leitura', leituraRoutes);
 app.use('/api/arduino', arduinoRoutes);
