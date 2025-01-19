@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-container
+    environment:
+      MYSQL_ROOT_PASSWORD: Password@123
+      MYSQL_DATABASE: oxyfish
+      MYSQL_USER: host
+      MYSQL_PASSWORD: Password@123
+    ports:
+      - "3307:3306"  # Mudei a porta externa de 3306 para 3307
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - app-network
+
+  node:
+    build: .
+    container_name: node-app
+    ports:
+      - "3000:3000"
+    environment:
+      DB_HOST: mysql
+      DB_USER: host
+      DB_PASSWORD: Password@123
+      DB_NAME: oxyfish
+    depends_on:
+      - mysql
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  mysql-data:
